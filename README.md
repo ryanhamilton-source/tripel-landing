@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Tripel — Landing Page
+
+Marketing landing page for [Tripel](https://tripel.app), the travel companion app for unforgettable group adventures.
+
+## Stack
+
+- **Framework** — [Next.js 14](https://nextjs.org) (App Router)
+- **Styling** — [Tailwind CSS v4](https://tailwindcss.com)
+- **Animations** — [Framer Motion](https://www.framer.com/motion/)
+- **World Map** — [react-simple-maps](https://www.react-simple-maps.io/) with Natural Earth TopoJSON
+- **Font** — Inter (Google Fonts)
+
+## Features
+
+- Animated hero with a real world map (Natural Earth projection) and a multi-city flight path animation — New York → London → Rome → Tokyo → Bali → Sydney
+- Plane icon that travels the full route with correct geographic positioning
+- Sticky navbar with blur-on-scroll
+- Features grid with glass-morphism cards
+- How it works — 3-step section
+- App preview with floating phone mockups
+- CTA strip and footer
+- Fully static export — no server required
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) — if that port is taken, Next.js will try 3001, 3002, etc.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+landing-tripel/
+├── app/
+│   ├── layout.tsx        # Root layout, metadata, fonts
+│   ├── page.tsx          # Page composition
+│   └── globals.css       # Tailwind imports + custom utilities
+├── components/
+│   ├── Navbar.tsx        # Sticky nav with blur-on-scroll
+│   ├── Hero.tsx          # World map + flight path animation
+│   ├── WorldMap.tsx      # react-simple-maps base map
+│   ├── Features.tsx      # 4-card features grid
+│   ├── HowItWorks.tsx    # 3-step section
+│   ├── AppPreview.tsx    # Phone mockups + stats
+│   ├── CTAStrip.tsx      # Download CTA banner
+│   └── Footer.tsx        # Links + socials
+└── public/               # Icons and favicons
+```
 
-## Learn More
+## Build
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run build
+npm run start
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Deployment
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Deploy to [Vercel](https://vercel.com) in one click — just connect this repo and it will auto-deploy on every push to `main`.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Alternatively, run `npm run build` and serve the `.next` output from any Node.js host.
