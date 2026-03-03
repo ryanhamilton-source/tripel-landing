@@ -5,30 +5,30 @@ import { useRef } from "react";
 
 const PLANS = [
   {
-    name: "Starter",
-    pages: "24–50 pages",
-    price: "$34",
-    suffix: ".99",
-    description: "Perfect for a weekend trip or short getaway.",
-    features: ["Hardcover A4 landscape", "Standard print quality", "Worldwide shipping", "Digital preview included"],
+    name: "Short Trip",
+    pages: "24–30 pages",
+    price: "$50",
+    suffix: "",
+    description: "Perfect for a weekend getaway or a short city break.",
+    features: ["11.7\" large square hardcover", "Premium gloss finish", "Worldwide shipping", "Trip stats cover page"],
     highlight: false,
   },
   {
-    name: "Standard",
-    pages: "51–100 pages",
-    price: "$49",
-    suffix: ".99",
-    description: "The sweet spot for a week-long group adventure.",
-    features: ["Hardcover A4 landscape", "Premium gloss finish", "Worldwide shipping", "Trip stats cover page", "Lay-flat binding"],
+    name: "Group Adventure",
+    pages: "31–100 pages",
+    price: "$60",
+    suffix: "",
+    description: "The sweet spot for a week-long group trip.",
+    features: ["11.7\" large square hardcover", "Premium gloss finish", "Worldwide shipping", "Trip stats cover page", "Lay-flat binding"],
     highlight: true,
   },
   {
-    name: "Premium",
+    name: "Epic Journey",
     pages: "101–300 pages",
-    price: "$69",
-    suffix: ".99",
-    description: "For the big trips that deserve every photo.",
-    features: ["Hardcover A4 landscape", "Premium gloss finish", "Worldwide shipping", "Trip stats cover page", "Lay-flat binding", "Priority production"],
+    price: "$150",
+    suffix: "",
+    description: "For the big trips that deserve every single photo.",
+    features: ["11.7\" large square hardcover", "Premium gloss finish", "Worldwide shipping", "Trip stats cover page", "Lay-flat binding"],
     highlight: false,
   },
 ];
@@ -160,7 +160,7 @@ export default function PhotoBooks() {
             {/* Quality badges */}
             <div className="flex flex-wrap justify-center gap-3">
               {[
-                { icon: "🖨️", label: "Professional print" },
+                { icon: "🖨️", label: "11.7\" large square" },
                 { icon: "📦", label: "Worldwide shipping" },
                 { icon: "🔒", label: "Lay-flat binding" },
                 { icon: "✨", label: "Premium gloss" },
@@ -203,7 +203,7 @@ export default function PhotoBooks() {
                 {
                   step: "03",
                   title: "Printed & shipped",
-                  desc: "Your A4 hardcover book is printed by Prodigi's global network and delivered in 5–10 days.",
+                  desc: "Your 11.7\" large square hardcover is printed by Prodigi's global network and delivered in 5–10 days.",
                 },
               ].map((item) => (
                 <div key={item.step} className="flex gap-4">
@@ -297,7 +297,7 @@ export default function PhotoBooks() {
           viewport={{ once: true }}
           transition={{ delay: 0.4, duration: 0.6 }}
         >
-          Prices are starting prices in USD and exclude shipping. Printed by Prodigi's global network. Delivery in 5–10 business days.
+          Prices in USD, per book, and exclude shipping. Minimum 24 photos required. Printed by Prodigi's global print network. Delivery in 5–10 business days.
         </motion.p>
       </div>
     </section>
