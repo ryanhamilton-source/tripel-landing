@@ -35,10 +35,10 @@ export default function Navbar() {
 
         {/* Nav links */}
         <div className="hidden md:flex items-center gap-8">
-          {["Features", "How it works", "Download"].map((item) => (
+          {["Features", "How it works", "Photo Books", "Download"].map((item) => (
             <a
               key={item}
-              href={`#${item.toLowerCase().replace(/ /g, "-")}`}
+              href={item === "Photo Books" ? "#photo-books" : `#${item.toLowerCase().replace(/ /g, "-")}`}
               className={`text-sm font-medium transition-colors duration-200 ${
                 item === "Download"
                   ? "text-white"
