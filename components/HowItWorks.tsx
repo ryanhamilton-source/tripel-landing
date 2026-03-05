@@ -22,7 +22,7 @@ const STEPS = [
     number: "02",
     title: "Plan together",
     description:
-      "Coordinate flights, accommodation, and activities in one shared view. Tripel handles visa lookups, transport tickets, and daily itineraries.",
+      "Coordinate flights, accommodation, and activities in one shared view. Tripel handles transport tickets, shared costs, and daily itineraries.",
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
         <path

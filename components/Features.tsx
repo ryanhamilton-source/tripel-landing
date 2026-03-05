@@ -30,7 +30,7 @@ const FEATURES = [
     ),
     title: "Smart Trip Planning",
     description:
-      "Organise accommodations, transport, and visas in one place. Keep the whole group informed with shared itineraries and visa requirements.",
+      "Organise accommodations, transport, and activities in one place. Keep the whole group informed with shared itineraries and daily plans.",
     accent: "from-emerald-500/20 to-teal-500/10",
     border: "border-emerald-500/20",
     glow: "rgba(52,211,153,0.15)",

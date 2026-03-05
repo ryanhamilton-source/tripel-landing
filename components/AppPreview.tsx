@@ -74,7 +74,7 @@ const SCREEN_PLANNING = (
     {[
       { icon: "✈️", label: "SYD → DPS", sub: "Mar 15 · Emirates", color: "bg-indigo-500/20 border-indigo-500/30" },
       { icon: "🏨", label: "Four Seasons Bali", sub: "5 nights · Confirmed", color: "bg-emerald-500/20 border-emerald-500/30" },
-      { icon: "🗺️", label: "Visa: Indonesia", sub: "30 days on arrival", color: "bg-amber-500/20 border-amber-500/30" },
+      { icon: "🗺️", label: "Uluwatu Temple", sub: "Mar 17 · 4:00 PM", color: "bg-amber-500/20 border-amber-500/30" },
       { icon: "🎯", label: "Surfing lesson", sub: "Mar 16 · 9:00 AM", color: "bg-pink-500/20 border-pink-500/30" },
     ].map((item) => (
       <div
@@ -174,26 +174,6 @@ export default function AppPreview() {
           />
         </div>
 
-        {/* Stats row */}
-        <motion.div
-          className="flex flex-wrap justify-center gap-10 mt-14"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-40px" }}
-          transition={{ duration: 0.6, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-        >
-          {[
-            { value: "10k+", label: "Trips created" },
-            { value: "4.9★", label: "App Store rating" },
-            { value: "50k+", label: "Photos shared" },
-            { value: "120+", label: "Countries explored" },
-          ].map((stat) => (
-            <div key={stat.label} className="text-center">
-              <div className="text-3xl font-bold gradient-text mb-1">{stat.value}</div>
-              <div className="text-white/40 text-sm">{stat.label}</div>
-            </div>
-          ))}
-        </motion.div>
       </div>
     </section>
   );

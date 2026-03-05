@@ -33,6 +33,14 @@ export default function Footer() {
                   {link}
                 </a>
               ))}
+              <a
+                href="https://tripel.app"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white/50 text-sm hover:text-white transition-colors duration-200"
+              >
+                Web app ↗
+              </a>
             </div>
             <div className="flex flex-col gap-3">
               <span className="text-white/30 text-xs uppercase tracking-widest font-semibold">Company</span>

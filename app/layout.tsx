@@ -9,15 +9,16 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Tripel — Your group trips, elevated.",
+  title: "Tripel — Your trips, elevated.",
   description:
     "The travel companion app for unforgettable group adventures. Photo sharing, trip planning, games, and printed photo books — all in one place.",
   icons: {
-    icon: "/favicon.ico",
-    apple: "/apple-icon.png",
+    icon: "/icon.png",
+    shortcut: "/icon.png",
+    apple: "/icon.png",
   },
   openGraph: {
-    title: "Tripel — Your group trips, elevated.",
+    title: "Tripel — Your trips, elevated.",
     description:
       "The travel companion app for unforgettable group adventures.",
     type: "website",

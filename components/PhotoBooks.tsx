@@ -1,7 +1,8 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import Image from "next/image";
 
 const PLANS = [
   {
@@ -14,11 +15,11 @@ const PLANS = [
     highlight: false,
   },
   {
-    name: "Group Adventure",
+    name: "Adventure",
     pages: "31–100 pages",
     price: "$60",
     suffix: "",
-    description: "The sweet spot for a week-long group trip.",
+    description: "The sweet spot for a week-long trip.",
     features: ["11.7\" large square hardcover", "Premium gloss finish", "Worldwide shipping", "Trip stats cover page", "Lay-flat binding"],
     highlight: true,
   },
@@ -33,16 +34,112 @@ const PLANS = [
   },
 ];
 
-function BookMockup() {
-  return (
-    <div className="relative w-64 h-80 mx-auto" style={{ perspective: "900px" }}>
-      {/* Book shadow */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-48 h-6 bg-black/40 blur-xl rounded-full" />
+// Travel-themed photo book page spreads
+const PAGE_SPREADS = [
+  {
+    label: "Day 1 · Arrival",
+    left: {
+      layout: "hero",
+      bg: "from-cyan-400 via-sky-500 to-blue-600",
+      emoji: "🏖️",
+      location: "Kuta Beach",
+      caption: "First swim of the trip",
+    },
+    right: {
+      layout: "duo",
+      photos: [
+        { bg: "from-emerald-400 to-teal-600", emoji: "🌴", label: "Palm grove" },
+        { bg: "from-amber-400 to-orange-500", emoji: "🌅", label: "Golden hour" },
+      ],
+      note: "Ubud, Bali",
+    },
+  },
+  {
+    label: "Day 4 · The Group",
+    left: {
+      layout: "trio",
+      photos: [
+        { bg: "from-violet-500 to-purple-700", emoji: "🛵", label: "Scooter crew" },
+        { bg: "from-rose-400 to-pink-600", emoji: "🍹", label: "Cocktails" },
+        { bg: "from-sky-400 to-blue-600", emoji: "🤿", label: "Snorkelling" },
+      ],
+      note: "Nusa Penida",
+    },
+    right: {
+      layout: "hero",
+      bg: "from-orange-400 via-rose-500 to-pink-700",
+      emoji: "📸",
+      location: "Group Shot",
+      caption: "The whole squad at Kelingking",
+    },
+  },
+  {
+    label: "Trip Stats",
+    left: {
+      layout: "stats",
+      stats: [
+        { icon: "📍", value: "6", label: "Locations" },
+        { icon: "📷", value: "847", label: "Photos" },
+        { icon: "🗓️", value: "14", label: "Days" },
+        { icon: "👥", value: "6", label: "Travellers" },
+      ],
+    },
+    right: {
+      layout: "hero",
+      bg: "from-indigo-500 via-violet-600 to-purple-800",
+      emoji: "🏆",
+      location: "Best moments",
+      caption: "Leaderboard winner: Ryan H.",
+    },
+  },
+];
 
-      {/* Book group — slight 3D tilt */}
-      <div
+function BookMockup() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [spreadIdx, setSpreadIdx] = useState(0);
+
+  const handleOpen = () => {
+    setIsOpen(true);
+    setSpreadIdx(0);
+  };
+  const handleClose = () => setIsOpen(false);
+  const nextSpread = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setSpreadIdx((i) => (i + 1) % PAGE_SPREADS.length);
+  };
+
+  const spread = PAGE_SPREADS[spreadIdx];
+
+  return (
+    <div
+      className="relative mx-auto cursor-pointer select-none"
+      style={{ perspective: "1000px", width: isOpen ? "340px" : "260px", height: "320px", transition: "width 0.6s cubic-bezier(0.22,1,0.36,1)" }}
+      onMouseEnter={handleOpen}
+      onMouseLeave={handleClose}
+      onClick={() => setIsOpen((v) => !v)}
+    >
+      {/* Hint label */}
+      <motion.div
+        className="absolute -bottom-7 left-1/2 -translate-x-1/2 text-white/30 text-xs whitespace-nowrap pointer-events-none"
+        animate={{ opacity: isOpen ? 0 : 1 }}
+        transition={{ duration: 0.3 }}
+      >
+        hover to open ↗
+      </motion.div>
+
+      {/* Dynamic shadow */}
+      <motion.div
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 bg-black/40 blur-xl rounded-full h-5"
+        animate={{ width: isOpen ? "280px" : "180px", opacity: isOpen ? 0.5 : 0.4 }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      />
+
+      {/* Book group */}
+      <motion.div
         className="relative w-full h-full"
-        style={{ transform: "rotateY(-18deg) rotateX(4deg)", transformStyle: "preserve-3d" }}
+        animate={{ rotateY: isOpen ? -4 : -18, rotateX: isOpen ? 1 : 4 }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        style={{ transformStyle: "preserve-3d" }}
       >
         {/* Spine */}
         <div
@@ -56,10 +153,7 @@ function BookMockup() {
         {/* Back cover */}
         <div
           className="absolute inset-0 rounded-r-md rounded-l-sm"
-          style={{
-            transform: "translateZ(-6px)",
-            background: "#312e81",
-          }}
+          style={{ transform: "translateZ(-6px)", background: "#312e81" }}
         />
 
         {/* Pages stack */}
@@ -71,42 +165,161 @@ function BookMockup() {
           }}
         />
 
-        {/* Front cover */}
-        <div
-          className="absolute inset-0 rounded-r-md rounded-l-sm overflow-hidden"
-          style={{ transform: "translateZ(0px)" }}
+        {/* ── Inner spread (visible when open) ── */}
+        <motion.div
+          className="absolute inset-0 rounded-r-md overflow-hidden flex flex-col"
+          style={{ transform: "translateZ(-1px)" }}
+          animate={{ opacity: isOpen ? 1 : 0 }}
+          transition={{ duration: 0.3, delay: isOpen ? 0.25 : 0 }}
         >
-          {/* Cover gradient background */}
-          <div className="absolute inset-0 bg-gradient-to-br from-indigo-600 via-indigo-700 to-violet-900" />
-
-          {/* Cover image collage — photo grid */}
-          <div className="absolute inset-3 grid grid-cols-2 grid-rows-3 gap-1 opacity-80">
-            {[
-              "from-amber-400/70 to-orange-500/70",
-              "from-emerald-400/70 to-teal-500/70",
-              "from-sky-400/70 to-blue-500/70",
-              "from-pink-400/70 to-rose-500/70",
-              "from-violet-400/70 to-purple-500/70",
-              "from-yellow-400/70 to-amber-500/70",
-            ].map((grad, i) => (
-              <div key={i} className={`rounded-sm bg-gradient-to-br ${grad}`} />
-            ))}
+          {/* Spread day label */}
+          <div className="bg-[#f5f4f0] border-b border-gray-200 px-2 py-0.5 flex items-center justify-between shrink-0">
+            <span className="text-[7px] font-semibold text-gray-400 uppercase tracking-widest">{spread.label}</span>
+            <button
+              onClick={nextSpread}
+              className="flex items-center gap-0.5 text-[7px] text-indigo-400 font-semibold hover:text-indigo-600 transition-colors"
+            >
+              next
+              <svg width="8" height="8" viewBox="0 0 24 24" fill="none">
+                <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </button>
           </div>
 
-          {/* Cover overlay + title */}
-          <div className="absolute inset-0 bg-gradient-to-t from-indigo-900/80 via-transparent to-transparent" />
-          <div className="absolute bottom-4 left-3 right-3">
-            <p className="text-white/50 text-[8px] uppercase tracking-widest font-medium mb-0.5">Bali 2025</p>
-            <p className="text-white font-bold text-sm leading-tight">The Squad's</p>
-            <p className="text-white font-bold text-sm leading-tight">Epic Adventure</p>
+          {/* Pages */}
+          <div className="flex flex-1 overflow-hidden">
+            {/* Left page */}
+            <div className="w-1/2 h-full bg-[#fafaf8] border-r border-gray-200 p-1.5 flex flex-col gap-1">
+              {spread.left.layout === "hero" && (() => {
+                const p = spread.left as { layout: "hero"; bg: string; emoji: string; location: string; caption: string };
+                return (
+                  <div className={`flex-1 rounded-sm bg-gradient-to-br ${p.bg} flex flex-col justify-between p-2`}>
+                    <span className="text-lg leading-none">{p.emoji}</span>
+                    <div>
+                      <p className="text-white/60 text-[7px] font-medium uppercase tracking-wider">{p.location}</p>
+                      <p className="text-white text-[8px] font-semibold leading-tight">{p.caption}</p>
+                    </div>
+                  </div>
+                );
+              })()}
+              {spread.left.layout === "trio" && (() => {
+                const p = spread.left as { layout: "trio"; photos: { bg: string; emoji: string; label: string }[]; note: string };
+                return (
+                  <>
+                    <div className="flex gap-1 flex-1">
+                      {p.photos.slice(0, 2).map((ph, i) => (
+                        <div key={i} className={`flex-1 rounded-sm bg-gradient-to-br ${ph.bg} flex flex-col justify-between p-1`}>
+                          <span className="text-sm leading-none">{ph.emoji}</span>
+                          <p className="text-white/80 text-[6px] font-medium">{ph.label}</p>
+                        </div>
+                      ))}
+                    </div>
+                    <div className={`h-16 rounded-sm bg-gradient-to-br ${p.photos[2].bg} flex items-end justify-between p-1`}>
+                      <span className="text-sm leading-none">{p.photos[2].emoji}</span>
+                      <p className="text-white/80 text-[6px] font-medium">{p.photos[2].label}</p>
+                    </div>
+                    <p className="text-gray-300 text-[6px] text-right font-medium">{p.note}</p>
+                  </>
+                );
+              })()}
+              {spread.left.layout === "stats" && (() => {
+                const p = spread.left as { layout: "stats"; stats: { icon: string; value: string; label: string }[] };
+                return (
+                  <div className="flex-1 flex flex-col justify-center gap-1.5 px-1">
+                    <p className="text-[7px] font-bold text-gray-500 uppercase tracking-widest mb-1">Trip summary</p>
+                    {p.stats.map((s, i) => (
+                      <div key={i} className="flex items-center gap-1.5">
+                        <span className="text-sm w-5 text-center leading-none">{s.icon}</span>
+                        <div>
+                          <p className="text-[10px] font-bold text-gray-700 leading-none">{s.value}</p>
+                          <p className="text-[6px] text-gray-400 font-medium">{s.label}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                );
+              })()}
+            </div>
+
+            {/* Right page */}
+            <div className="w-1/2 h-full bg-[#fafaf8] p-1.5 flex flex-col gap-1">
+              {spread.right.layout === "hero" && (() => {
+                const p = spread.right as { layout: "hero"; bg: string; emoji: string; location: string; caption: string };
+                return (
+                  <div className={`flex-1 rounded-sm bg-gradient-to-br ${p.bg} flex flex-col justify-between p-2`}>
+                    <span className="text-lg leading-none">{p.emoji}</span>
+                    <div>
+                      <p className="text-white/60 text-[7px] font-medium uppercase tracking-wider">{p.location}</p>
+                      <p className="text-white text-[8px] font-semibold leading-tight">{p.caption}</p>
+                    </div>
+                  </div>
+                );
+              })()}
+              {spread.right.layout === "duo" && (() => {
+                const p = spread.right as { layout: "duo"; photos: { bg: string; emoji: string; label: string }[]; note: string };
+                return (
+                  <>
+                    {p.photos.map((ph, i) => (
+                      <div key={i} className={`flex-1 rounded-sm bg-gradient-to-br ${ph.bg} flex items-end justify-between p-1.5`}>
+                        <span className="text-sm leading-none">{ph.emoji}</span>
+                        <p className="text-white/80 text-[6px] font-medium">{ph.label}</p>
+                      </div>
+                    ))}
+                    <p className="text-gray-300 text-[6px] text-right font-medium">{p.note}</p>
+                  </>
+                );
+              })()}
+            </div>
+          </div>
+        </motion.div>
+
+        {/* ── Front cover — swings open on hover ── */}
+        <motion.div
+          className="absolute inset-0 rounded-r-md rounded-l-sm overflow-hidden"
+          style={{ transformOrigin: "left center", transformStyle: "preserve-3d" }}
+          animate={{ rotateY: isOpen ? -145 : 0 }}
+          transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+        >
+          {/* Cover face */}
+          <div className="absolute inset-0 bg-gradient-to-br from-indigo-600 via-indigo-700 to-violet-900">
+            {/* Photo collage grid */}
+            <div className="absolute inset-3 grid grid-cols-2 grid-rows-3 gap-1 opacity-80">
+              {[
+                "from-amber-400/70 to-orange-500/70",
+                "from-emerald-400/70 to-teal-500/70",
+                "from-sky-400/70 to-blue-500/70",
+                "from-pink-400/70 to-rose-500/70",
+                "from-violet-400/70 to-purple-500/70",
+                "from-yellow-400/70 to-amber-500/70",
+              ].map((g, i) => (
+                <div key={i} className={`rounded-sm bg-gradient-to-br ${g}`} />
+              ))}
+            </div>
+
+            {/* Gradient overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-indigo-900/85 via-transparent to-indigo-900/20" />
+
+            {/* Tripel logo + name — top left */}
+            <div className="absolute top-3 left-3 flex items-center gap-1.5">
+              <div className="w-6 h-6 rounded-md overflow-hidden">
+                <Image src="/icon.png" alt="Tripel" width={24} height={24} className="w-full h-full object-cover" />
+              </div>
+              <span className="text-white text-[9px] font-bold tracking-wide drop-shadow">Tripel</span>
+            </div>
+
+            {/* Trip details — bottom */}
+            <div className="absolute bottom-4 left-3 right-3">
+              <p className="text-white/55 text-[8px] uppercase tracking-widest font-medium mb-0.5">Bali 2025</p>
+            </div>
           </div>
 
-          {/* Tripel badge */}
-          <div className="absolute top-3 right-3 px-2 py-0.5 rounded-full bg-white/15 backdrop-blur-sm">
-            <span className="text-white text-[7px] font-semibold tracking-wide">TRIPEL</span>
-          </div>
-        </div>
-      </div>
+          {/* Cover back face (visible when swung open) */}
+          <div
+            className="absolute inset-0 bg-[#e8e8e0]"
+            style={{ transform: "rotateY(180deg)", backfaceVisibility: "hidden" }}
+          />
+        </motion.div>
+      </motion.div>
     </div>
   );
 }
@@ -155,7 +368,12 @@ export default function PhotoBooks() {
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="flex flex-col items-center gap-8"
           >
-            <BookMockup />
+            {/* Extra space so the book has room to open rightward */}
+            <div className="relative w-full flex justify-center pb-8" style={{ minHeight: "360px" }}>
+              <div className="absolute" style={{ top: "20px" }}>
+                <BookMockup />
+              </div>
+            </div>
 
             {/* Quality badges */}
             <div className="flex flex-wrap justify-center gap-3">
@@ -273,14 +491,16 @@ export default function PhotoBooks() {
               </ul>
 
               <a
-                href="#download"
+                href="https://tripel.app"
+                target="_blank"
+                rel="noopener noreferrer"
                 className={`relative z-10 mt-auto flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-semibold text-sm transition-all duration-200 active:scale-95 ${
                   plan.highlight
                     ? "bg-indigo-500 hover:bg-indigo-600 text-white hover:shadow-lg hover:shadow-indigo-500/30"
                     : "glass border border-white/10 text-white hover:bg-white/[0.06]"
                 }`}
               >
-                Order in app
+                Order at Tripel
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
                   <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>

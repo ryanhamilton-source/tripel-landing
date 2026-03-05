@@ -184,16 +184,15 @@ export default function Hero() {
             );
           })}
 
-          {/* Plane — rotates to face direction of travel */}
+          {/* Plane — single-path ✈ silhouette, rotates to face direction of travel */}
           {showPlane && (
             <g
               transform={`translate(${planePos.x}, ${planePos.y}) rotate(${planeAngle})`}
               style={{ filter: "drop-shadow(0 0 4px rgba(129,140,248,0.9))" }}
             >
               <path
-                d="M0,-6 L-3,4 L0,2 L3,4 Z"
+                d="M0,-8 L1.5,0 L8,3 L1.5,1.5 L1,6 L3,7.5 L0,7 L-3,7.5 L-1,6 L-1.5,1.5 L-8,3 L-1.5,0 Z"
                 fill="#818cf8"
-                transform="scale(1.4)"
               />
             </g>
           )}
@@ -218,12 +217,12 @@ export default function Hero() {
           </div>
 
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-[1.05] mb-5">
-            Your group trips,{" "}
+            Your trips,{" "}
             <span className="gradient-text">elevated.</span>
           </h1>
 
           <p className="text-white/55 text-lg md:text-xl max-w-xl mx-auto leading-relaxed mb-10">
-            Plan together, share memories, play games, and print photo books —
+            Plan together, share memories, play games, and print photo books
             all in one beautifully designed app.
           </p>
 
@@ -234,11 +233,18 @@ export default function Hero() {
               </svg>
               App Store
             </a>
-            <a href="#download" className="flex items-center gap-3 px-7 py-3.5 rounded-2xl glass border border-white/10 text-white font-semibold hover:bg-white/[0.06] transition-all duration-200 active:scale-95">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M3.18 23.76c.3.17.64.24.99.2l12.7-7.34-2.78-2.78-10.91 9.92zM20.49 10.28L17.3 8.43l-3.12 3.13 3.12 3.12 3.21-1.87c.92-.53.92-1.99-.02-2.53zM1.89.29C1.67.5 1.54.82 1.54 1.24v21.52c0 .42.13.74.36.95l.05.04 12.06-12.06v-.28L1.94.25l-.05.04zM13.07 15.37l-3.63-3.63-7.55 8.7 11.18-5.07z" />
+            <a
+              href="https://tripel.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-7 py-3.5 rounded-2xl glass border border-white/10 text-white font-semibold hover:bg-white/[0.06] transition-all duration-200 active:scale-95"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="2" y1="12" x2="22" y2="12" />
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
               </svg>
-              Google Play
+              Tripel
             </a>
           </div>
         </motion.div>

@@ -50,13 +50,23 @@ export default function Navbar() {
           ))}
         </div>
 
-        {/* CTA */}
-        <a
-          href="#download"
-          className="group relative px-5 py-2 rounded-full bg-indigo-500 text-white text-sm font-semibold overflow-hidden transition-all duration-200 hover:bg-indigo-600 hover:shadow-lg hover:shadow-indigo-500/30 active:scale-95"
-        >
-          <span className="relative z-10">Download App</span>
-        </a>
+        {/* CTAs */}
+        <div className="flex items-center gap-3">
+          <a
+            href="https://tripel.app"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden sm:block text-sm font-medium text-white/60 hover:text-white transition-colors duration-200"
+          >
+            Log in ↗
+          </a>
+          <a
+            href="#download"
+            className="group relative px-5 py-2 rounded-full bg-indigo-500 text-white text-sm font-semibold overflow-hidden transition-all duration-200 hover:bg-indigo-600 hover:shadow-lg hover:shadow-indigo-500/30 active:scale-95"
+          >
+            <span className="relative z-10">Download App</span>
+          </a>
+        </div>
       </div>
     </motion.nav>
   );

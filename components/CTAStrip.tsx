@@ -57,15 +57,18 @@ export default function CTAStrip() {
                   </svg>
                   Download on App Store
                 </a>
-
                 <a
-                  href="#"
-                  className="flex items-center gap-3 px-7 py-3.5 rounded-2xl bg-white/15 border border-white/25 text-white font-semibold hover:bg-white/20 transition-all duration-200 active:scale-95 text-sm backdrop-blur-sm"
+                  href="https://tripel.app"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 px-7 py-3.5 rounded-2xl bg-white/15 border border-white/25 text-white font-semibold hover:bg-white/20 transition-all duration-200 active:scale-95 text-sm backdrop-blur-sm"
                 >
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M3.18 23.76c.3.17.64.24.99.2l12.7-7.34-2.78-2.78-10.91 9.92zM20.49 10.28L17.3 8.43l-3.12 3.13 3.12 3.12 3.21-1.87c.92-.53.92-1.99-.02-2.53zM1.89.29C1.67.5 1.54.82 1.54 1.24v21.52c0 .42.13.74.36.95l.05.04 12.06-12.06v-.28L1.94.25l-.05.04zM13.07 15.37l-3.63-3.63-7.55 8.7 11.18-5.07z" />
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="2" y1="12" x2="22" y2="12" />
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
                   </svg>
-                  Get it on Google Play
+                  Open Tripel
                 </a>
               </div>
             </motion.div>
