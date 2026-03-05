@@ -12,11 +12,6 @@ export const metadata: Metadata = {
   title: "Tripel — Your trips, elevated.",
   description:
     "The travel companion app for unforgettable group adventures. Photo sharing, trip planning, games, and printed photo books — all in one place.",
-  icons: {
-    icon: "/icon.png",
-    shortcut: "/icon.png",
-    apple: "/icon.png",
-  },
   openGraph: {
     title: "Tripel — Your trips, elevated.",
     description:
