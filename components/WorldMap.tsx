@@ -26,7 +26,7 @@ export default function WorldMap() {
 
       {/* Country outlines */}
       <Geographies geography={GEO_URL}>
-        {({ geographies }) =>
+        {({ geographies }: { geographies: any[] }) =>
           geographies.map((geo) => (
             <Geography
               key={geo.rsmKey}
